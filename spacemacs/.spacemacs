@@ -328,6 +328,13 @@ before packages are loaded. If you are unsure, you should try in setting them in
   (setq lsp-log-io t)
   (setq  lsp-enabled-clients '(cimsel clangd))
   (setq tramp-remote-path '(tramp-default-remote-path  "~/.local/bin/" "~/clang+llvm-9.0.0-x86_64-linux-gnu-ubuntu-16.04/bin"))
+  ;; mode line time stamp
+  (setq display-time-24hr-format t)
+  (setq display-time-format "%H:%M:%S")        ; add seconds
+  (setq display-time-interval 1)               ; update every second
+  (setq display-time-default-load-average nil) ; don't show load average
+  (display-time-mode 1)                 ; show time in mode line on startup
+
   )
 
 (defun dotspacemacs/user-config ()
