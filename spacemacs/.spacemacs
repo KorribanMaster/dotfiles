@@ -40,30 +40,37 @@ values."
      auto-completion
      better-defaults
      emacs-lisp
-     (latex :variables latex-build-command "pdflatex")
+     (latex :variables latex-enable-folding t
+            latex-enable-auto-fill t)
      git
      version-control
      lsp
-     (c-c++ :variables c-c++-backend 'lsp-clangd
-            ccls-executable "/home/xyehecht/ccls/Release/ccls"
+     (c-c++ :variables c-c++-backend 'lsp-ccls
+            ccls-executable "/snap/ccls/current/bin/ccls" 
+            lsp-clients-clangd-executable "/usr/bin/clangd"
             )
      markdown
      cmake
+     (python :variables python-backend 'lsp
+             python-lsp-server 'pyls
+             python-test-runner 'pytest)
      themes-megapack
      org
      pdf
-     (shell :variables
-            shell-default-height 30
+     (shell :variables 
+            shell-default-height 40
             shell-default-position 'bottom)
      spell-checking
      syntax-checking
      version-control
+     dap
+     mu4e
      )
    ;; List of additional packages that will be installed without being
    ;; wrapped in a layer. If you need some configuration for these
    ;; packages, then consider creating a layer. You can also put the
    ;; configuration in `dotspacemacs/user-config'.
-   dotspacemacs-additional-packages '()
+   dotspacemacs-additional-packages '(excorporate)
    ;; A list of packages that cannot be updated.
    dotspacemacs-frozen-packages '()
    ;; A list of packages that will not be installed and loaded.
