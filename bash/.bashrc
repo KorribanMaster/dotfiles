@@ -117,3 +117,9 @@ if ! shopt -oq posix; then
 fi
 export XILINXD_LICENSE_FILE=2100@flexlm.mixed-mode.de
 
+# Load pyenv automatically
+
+export PATH="/home/eichec/.pyenv/bin:$PATH"
+eval "$(pyenv init -)"
+eval "$(pyenv virtualenv-init -)"
+
