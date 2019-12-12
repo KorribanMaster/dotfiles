@@ -1,0 +1,23 @@
+IMAPAccount work
+Host localhost
+Port 1143
+User eichec
+SSLType None
+AuthMechs LOGIN
+
+IMAPStore work-remote
+Account work
+
+MaildirStore work-local
+Subfolders Verbatim
+Path ~/mail/work/
+Inbox ~/mail/work/Inbox
+
+Channel work
+Master :work-remote:
+Slave :work-local:
+Patterns * !Archives
+
+Create Both
+Expunge Both
+SyncState *
