@@ -457,44 +457,17 @@ you should place your code here."
                         mu4e-maildir-shortcuts) " OR ")
            "All inboxes" ?i)))
   )
-
-(defun dotspacemacs/user-config ()
-  "Configuration function for user code.
-This function is called at the very end of Spacemacs initialization after
-layers configuration.
-This is the place where most of your configurations should be done. Unless it is
-explicitly specified that a variable should be set before a package is loaded,
-you should place your code here."
-
-  ;; configure excorporate
-  ;; allow opening the exchange calendar with 'e' from calendar 
-
-  (evil-define-key 'motion calendar-mode-map "e" #'exco-calendar-show-day)
-  (setq-default
-   ;; configure email address and office 365 exchange server adddress for exchange web services
-   excorporate-configuration
-   (quote
-    ("eicke.hecht@mixed-mode.de" . "https://owa.pixel-group.de/ews/exchange.asmx"))
-   ;; integrate emacs diary entries into org agenda
-   org-agenda-include-diary t
-   )
-  ;; activate excorporate and request user/password to start connection
-  (excorporate)
-  ;; enable the diary integration (i.e. write exchange calendar to emacs diary file -> ~/.emacs.d/diary must exist)
-  (excorporate-diary-enable)
-  (defun ab/agenda-update-diary ()
-    "call excorporate to update the diary for today"
-    (exco-diary-diary-advice (calendar-current-date) (calendar-current-date) #'message "diary updated")
-    )
-  (add-hook 'doc-view-mode-hook 'auto-revert-mode)
-  ;; update the diary every time the org agenda is refreshed
-  (add-hook 'org-agenda-cleanup-fancy-diary-hook 'ab/agenda-update-diary )
-  (with-eval-after-load 'lsp-mode (lsp-register-client
-  (make-lsp-client
-    :new-connection (lsp-tramp-connection "clangd")
-    :major-modes '(c-mode c++-mode)
-    :remote? t
-    :server-id 'clangd)))
+  (with-eval-after-load 'org
+    (setq org-todo-keywords
+      '((sequence "todo" "doing" "blocked" "review" "|" "done" "archived"))))
+  (with-eval-after-load 'org
+    (setq org-todo-keyword-faces
+      '(("todo" . "SlateGray")
+        ("doing" . "DarkOrchid")
+        ("blocked" . "Firebrick")
+        ("review" . "Teal")
+        ("done" . "ForestGreen")
+        ("archived" .  "SlateBlue"))))
 )
 ;; Do not write anything past this comment. This is where Emacs will
 ;; auto-generate custom variable definitions.
