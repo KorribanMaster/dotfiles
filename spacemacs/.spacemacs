@@ -336,10 +336,48 @@ before packages are loaded. If you are unsure, you should try in setting them in
   (setq display-time-interval 1)               ; update every second
   (setq display-time-default-load-average nil) ; don't show load average
   (display-time-mode 1)                 ; show time in mode line on startup
+
+(defun dotspacemacs/user-config ()
+  "Configuration function for user code.
+This function is called at the very end of Spacemacs initialization after
+layers configuration.
+This is the place where most of your configurations should be done. Unless it is
+explicitly specified that a variable should be set before a package is loaded,
+you should place your code here."
+
+  ;; configure excorporate
+  ;; allow opening the exchange calendar with 'e' from calendar 
+
+  (evil-define-key 'motion calendar-mode-map "e" #'exco-calendar-show-day)
+  (setq-default
+   ;; configure email address and office 365 exchange server adddress for exchange web services
+   excorporate-configuration
+   (quote
+    ("eicke.hecht@mixed-mode.de" . "https://owa.pixel-group.de/ews/exchange.asmx"))
+   ;; integrate emacs diary entries into org agenda
+   org-agenda-include-diary t
+   )
+  ;; activate excorporate and request user/password to start connection
+  (excorporate)
+  ;; enable the diary integration (i.e. write exchange calendar to emacs diary file -> ~/.emacs.d/diary must exist)
+  (excorporate-diary-enable)
+  (defun ab/agenda-update-diary ()
+    "call excorporate to update the diary for today"
+    (exco-diary-diary-advice (calendar-current-date) (calendar-current-date) #'message "diary updated")
+    )
+  (add-hook 'doc-view-mode-hook 'auto-revert-mode)
+  ;; update the diary every time the org agenda is refreshed
+  (add-hook 'org-agenda-cleanup-fancy-diary-hook 'ab/agenda-update-diary )
+  (with-eval-after-load 'lsp-mode (lsp-register-client
+  (make-lsp-client
+    :new-connection (lsp-tramp-connection "clangd")
+    :major-modes '(c-mode c++-mode)
+    :remote? t
+    :server-id 'clangd)))
   (setq mu4e-contexts
     `( ,(make-mu4e-context
-    :name "Private"
-    :enter-func (lambda () (mu4e-message "Switch to the Private context"))
+    :name "Work"
+    :enter-func (lambda () (mu4e-message "Switch to the Work context"))
     ;; leave-func not defined
     :match-func (lambda (msg)
       (when msg
@@ -370,9 +408,7 @@ before packages are loaded. If you are unsure, you should try in setting them in
          "Das unerlaubte Kopieren sowie die unbefugte Weitergabe dieser Mail sind nicht gestattet. "
          "Über das Internet versandte Emails können leicht unter fremden Namen erstellt oder manipuliert werden. "
          "Aus diesem Grunde bitten wir um Verständnis, dass wir zu Ihrem und unserem Schutz die rechtliche Verbindlichkeit der vorstehenden Erklärungen und Äußerungen ausschließen." ))))
-      ,(make-mu4e-context
-    :name "work"
-    :enter-func (lambda () (mu4e-message "Switch to the Work context")))))
+      ))
   ;; set `mu4e-context-policy` and `mu4e-compose-policy` to tweak when mu4e should
   ;; guess or ask the correct context, e.g.
 
@@ -393,8 +429,11 @@ before packages are loaded. If you are unsure, you should try in setting them in
         mu4e-update-interval nil
         mu4e-compose-signature-auto-include nil
         mu4e-view-show-images t
-        mu4e-view-show-addresses t);; SMTP settings
-  (setq smtpmail-smtp-user "eicke.hecht@mixed-mode.de"
+        mu4e-view-show-addresses t)
+  ;; SMTP settings
+  (setq smtpmail-smtp-user "eichec"
+        smtpmail-stream-type nil
+        smtpmail-mail-address "eicke.hecht@mixed-mode.de"
         smtpmail-default-smtp-server "localhost"
         smtpmail-smtp-server "localhost"
         smtpmail-smtp-service 1025
