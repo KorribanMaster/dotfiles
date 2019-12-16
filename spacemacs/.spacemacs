@@ -459,15 +459,15 @@ you should place your code here."
   )
   (with-eval-after-load 'org
     (setq org-todo-keywords
-      '((sequence "todo" "doing" "blocked" "review" "|" "done" "archived"))))
+      '((sequence "TODO" "DOING" "BLOCKED" "REVIEW" "|" "DONE" "ARCHIVED"))))
   (with-eval-after-load 'org
     (setq org-todo-keyword-faces
-      '(("todo" . "SlateGray")
-        ("doing" . "DarkOrchid")
-        ("blocked" . "Firebrick")
-        ("review" . "Teal")
-        ("done" . "ForestGreen")
-        ("archived" .  "SlateBlue"))))
+      '(("TODO" . "Orange")
+        ("DOING" . "DarkOrchid")
+        ("BLOCKED" . "Firebrick")
+        ("REVIEW" . "Teal")
+        ("DONE" . "ForestGreen")
+        ("ARCHIVED" .  "SlateBlue"))))
 )
 ;; Do not write anything past this comment. This is where Emacs will
 ;; auto-generate custom variable definitions.
