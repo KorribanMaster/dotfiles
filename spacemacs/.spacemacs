@@ -30,7 +30,7 @@ values."
    dotspacemacs-configuration-layer-path '()
    ;; List of configuration layers to load.
    dotspacemacs-configuration-layers
-   '(javascript
+   `(javascript
      ;; ----------------------------------------------------------------
      ;; Example of useful layers you may want to use right away.
      ;; Uncomment some layer names and press <SPC f e R> (Vim style) or
@@ -45,10 +45,19 @@ values."
      git
      version-control
      lsp
-     (c-c++ :variables c-c++-backend 'lsp-ccls
-            ccls-executable "/snap/ccls/current/bin/ccls" 
-            lsp-clients-clangd-executable "/usr/bin/clangd"
-            )
+     ,(cond ((string= (system-name) "eicke-laptop")
+            '(c-c++ :variables c-c++-backend 'lsp-ccls
+                              ccls-executable "/home/eicke/git/ccls/Release/ccls" 
+                              lsp-clients-clangd-executable "/home/eicke/clang+llvm-9.0.0-x86_64-linux-gnu-ubuntu-18.04/bin/clangd"))
+          ((string= (system-name) "nb108")
+           '(c-c++ :variables c-c++-backend 'lsp-ccls
+                              ccls-executable "/home/eichec/git/ccls/Release/ccls" 
+                              lsp-clients-clangd-executable "/home/eichec/clang+llvm-9.0.0-x86_64-linux-gnu-ubuntu-18.04/bin/clangd"))
+          ((string= (system-name) "zeiss")
+           '(c-c++ :variables c-c++-backend 'lsp-clangd
+                  ccls-executable "/home/xyehecht/git/ccls/Release/ccls" 
+                  lsp-clients-clangd-executable "/home/xyehecht/clang+llvm-9.0.0-x86_64-linux-gnu-ubuntu-18.04/bin/clangd"))
+          (t '(c-c++ :variables c-c++-backend 'lsp-clangd)))
      markdown
      cmake
      (python :variables python-backend 'lsp
@@ -277,10 +286,6 @@ values."
    ;;   :size-limit-kb 1000)
    ;; (default nil)
    dotspacemacs-line-numbers '(:relative t
-                                  :enabled-for-modes  latex-mode
-                                                      org-mode
-                                                      markdown-mode
-                                                      text-mode
                                 :disabled-for-modes   dired-mode
                                                       doc-view-mode
                                 :size-limit-kb 1000)
