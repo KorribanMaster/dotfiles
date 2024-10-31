@@ -2,13 +2,13 @@
 
 This is my dotfiles directory to use it you have to install stow 
 
-'''bash
+```shell
 sudo apt install stow
-'''
+```
 
 To create the symlinks eg for vim you have to do the following
 * delete or backup original dotfiles in your home directory
-* 'stow vim'
+* `stow vim`
 
 ## Creation of new pkgs
 
