@@ -16,6 +16,8 @@ fi
 
 # Source/Load zinit
 source "${ZINIT_HOME}/zinit.zsh"
+# Source fzf
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 # Add in Powerlevel10k
 zinit ice depth=1; zinit light romkatv/powerlevel10k
@@ -112,9 +114,3 @@ if [ -d "$FNM_PATH" ]; then
   eval "`fnm env`"
 fi
 
-# fnm
-FNM_PATH="/home/y1ehecht/.local/share/fnm"
-if [ -d "$FNM_PATH" ]; then
-  export PATH="$FNM_PATH:$PATH"
-  eval "`fnm env`"
-fi
