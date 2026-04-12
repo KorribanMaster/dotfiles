@@ -89,7 +89,7 @@ if [ -d "$HOME/.local/bin" ] ; then
     PATH="$HOME/.local/bin:$PATH"
 fi
 source "$HOME/.cargo/env"
-
+source "$HOME/export-esp.sh"
 # fnm
 export PATH="/home/hechte/.local/share/fnm:$PATH"
 eval "`fnm env`"
@@ -105,12 +105,16 @@ fi
 export XDG_CONFIG_HOME="$HOME/.config/"
 # Shell integrations
 eval "$(fzf --zsh)"
-eval "$(zoxide init --cmd cd zsh)"
-
+if [[ "$CLAUDECODE" != "1" ]]; then
+    eval "$(zoxide init --cmd cd zsh)"
+fi
 # fnm
 FNM_PATH="/home/y1ehecht/.local/share/fnm"
 if [ -d "$FNM_PATH" ]; then
   export PATH="$FNM_PATH:$PATH"
   eval "`fnm env`"
 fi
+eval "$(/home/eicke/miniconda3/bin/conda shell.zsh hook)"
+
+
 
