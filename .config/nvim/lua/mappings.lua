@@ -38,6 +38,30 @@ local mappings = {  -- Corrected from mapppings to mappings
     ["<leader>fs"] = { ":w<CR>", "Save file" },
     ["<leader>fS"] = { ":wa<CR>", "Save files" },
     ["<leader>qq"] = { ":qa<CR>", "Close all" },
+    -- Diagnostics
+    ["<leader>dd"] = {
+      function() vim.diagnostic.open_float(nil, { scope = "line" }) end,
+      "Diagnostics: floating window",
+    },
+    ["<leader>dv"] = {
+      function()
+        local cfg = vim.diagnostic.config()
+        if type(cfg.virtual_lines) == "table" and cfg.virtual_lines.current_line then
+          vim.diagnostic.config { virtual_lines = true }
+        elseif cfg.virtual_lines == true then
+          vim.diagnostic.config { virtual_lines = false }
+        else
+          vim.diagnostic.config { virtual_lines = { current_line = true } }
+        end
+      end,
+      "Diagnostics: cycle virtual_lines",
+    },
+    ["<leader>dn"] = { function() vim.diagnostic.goto_next() end, "Next diagnostic" },
+    ["<leader>dp"] = { function() vim.diagnostic.goto_prev() end, "Prev diagnostic" },
+    ["<leader>fm"] = {
+      function() require("conform").format { lsp_fallback = true } end,
+      "Format file",
+    },
   },
   i = {
     ["jk"] = { "<ESC>", "escape insert mode", opts = { nowait = true } },
