@@ -108,6 +108,38 @@ return {
 		end,
 	},
   {
+    "3rd/image.nvim",
+    build = false,
+    ft = { "markdown" },
+    opts = {
+      backend = "kitty",
+      processor = "magick_cli",
+      max_width = 100,
+      max_height = 30,
+      tmux_show_only_in_active_window = true,
+    },
+  },
+  {
+    "3rd/diagram.nvim",
+    dependencies = { "3rd/image.nvim" },
+    ft = { "markdown" },
+    config = function()
+      require("diagram").setup({
+        integrations = {
+          require("diagram.integrations.markdown"),
+        },
+        renderer_options = {
+          mermaid = {
+            theme = "dark",
+            background = "transparent",
+            scale = 2,
+            cli_args = { "-p", vim.fn.expand("~/.config/mermaid/puppeteer-config.json") },
+          },
+        },
+      })
+    end,
+  },
+  {
 		"danymat/neogen",
 		opts = true,
 		keys = {

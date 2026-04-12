@@ -6,7 +6,11 @@ local servers = {
   bashls = {},
   clangd = {},
   ruff = {},
-  rustacenvim = {},
+  vhdl_ls = {},
+  verible = {
+    cmd = { "verible-verilog-ls", "--rules_config_search" },
+    filetypes = { "systemverilog", "verilog" },
+  },
 }
 
 for name, opts in pairs(servers) do
