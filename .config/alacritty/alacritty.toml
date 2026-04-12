@@ -30,12 +30,15 @@ decorations_theme_variant = "Light" # "Dark"
 
 [font]
 
-normal.family = "Cascadia Code PL"
-bold.family = "Cascadia Code PL"
-italic.family = "Cascadia Code PL"
-bold_italic.family = "Cascadia Code PL"
+normal.family = "SauceCodePro Nerd Font"
+bold.family = "SauceCodePro Nerd Font"
+italic.family = "SauceCodePro Nerd Font"
+bold_italic.family = "SauceCodePro Nerd Font"
 
-size = 15.0
+size = 13.0
+
+[terminal]
+shell = { program = "/usr/bin/zsh", args = ["-i"]}
 
 # Tip: for inspiration, look for values in the source code files of your favorite VS Code themes, and use the color picker in
 # Google to test colors before setting a value, or simply using an editor such as VS Code where colors are displayed in a 
