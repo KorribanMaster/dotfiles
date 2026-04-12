@@ -13,13 +13,6 @@ return {
     end,
   },
   {
-    "nvimtools/none-ls.nvim",
-    ft = { "python" },
-    opts = function()
-      return require "custom.configs.null-ls"
-    end,
-  },
-  {
     'mrcjkb/rustaceanvim',
     version = '^6', -- Recommended
     lazy = false, -- This plugin is already lazy
