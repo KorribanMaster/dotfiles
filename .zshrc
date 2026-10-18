@@ -131,3 +131,9 @@ if [ -x "$HOME/miniconda3/bin/conda" ]; then
    eval "$("$HOME/miniconda3/bin/conda" shell.zsh hook)"
 fi
 export GPG_TTY=$(tty)
+
+# Xilinx 2025.2 toolchain - activate on demand with `xenv`
+xenv() {
+  source ~/xilinx/2025.2/Vitis/settings64.sh
+  echo "Xilinx 2025.2 ready: $(command -v vivado)"
+}
