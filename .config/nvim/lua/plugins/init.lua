@@ -103,7 +103,11 @@ return {
   {
     "3rd/image.nvim",
     build = false,
-    ft = { "markdown" },
+    lazy = true,
+    cond = function()
+      if not vim.env.TMUX then return true end
+      return vim.fn.system("tmux show-options -gv allow-passthrough 2>/dev/null"):match("^on") ~= nil
+    end,
     opts = {
       backend = "kitty",
       processor = "magick_cli",
